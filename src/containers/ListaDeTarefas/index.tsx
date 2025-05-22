@@ -1,5 +1,5 @@
 import Tarefa from '../../components/Tarefas'
-import { Container, ParagrafoPesquisa } from './styles'
+import { Container, ParagrafoPesquisa, Pesquisa } from './styles'
 import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 
@@ -31,20 +31,34 @@ const ListaDeTarefas = () => {
     }
   }
 
+  const tarefas = filtraTarefas()
+
+  const resultadoFiltro = (quantidade: number) => {
+    const termoPesquisa =
+      termo !== undefined && termo.length > 0 ? `e "${termo}"` : ''
+
+    if (criterio === 'todas') {
+      if (quantidade === 1) {
+        return `${quantidade} tarefa marcada como ${criterio} ${termoPesquisa}`
+      } else {
+        return `${quantidade} tarefas marcadas como ${criterio} ${termoPesquisa}`
+      }
+    } else if (criterio === 'prioridade' || criterio === 'status') {
+      if (quantidade === 1) {
+        return `${quantidade} tarefa marcada como ${criterio} ${valor} ${termoPesquisa}`
+      } else {
+        return `${quantidade} tarefas marcadas como ${criterio} ${valor} ${termoPesquisa}`
+      }
+    }
+  }
+
   return (
     <Container>
       <ParagrafoPesquisa>
-        <p>
-          2 tarefas marcadas como &quot;categoria&ldquo; e &quot;termo&ldquo;
-        </p>
+        <Pesquisa>{resultadoFiltro(tarefas.length)}</Pesquisa>
       </ParagrafoPesquisa>
       <ul>
-        <li>{termo}</li>
-        <li>{criterio}</li>
-        <li>{valor}</li>
-      </ul>
-      <ul>
-        {filtraTarefas().map((t) => (
+        {tarefas.map((t) => (
           <li key={t.titulo}>
             <Tarefa
               id={t.id}

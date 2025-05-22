@@ -9,3 +9,8 @@ export const Container = styled.main`
 export const ParagrafoPesquisa = styled.div`
   padding: 32px 8px;
 `
+
+export const Pesquisa = styled.p`
+  font-weight: bold;
+  font-size: 1.3rem;
+`

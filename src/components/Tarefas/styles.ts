@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Cores from '../../styles/cores'
+import { CoresTarefas } from '../../styles/cores'
 import * as enums from '../../utils/enums/Tarefa'
 
 type TagProps = {
@@ -10,33 +11,49 @@ type TagProps = {
 
 function corDeFundoTag(props: TagProps): string {
   if (props.parametro === 'status') {
-    if (props.status === enums.Status.PENDENTE) return Cores.amarelo
+    if (props.status === enums.Status.PENDENTE) return CoresTarefas.amarelo
     if (props.status === enums.Status.CONCLUIDA) return Cores.verde
   } else {
-    if (props.prioridade === enums.Prioridade.IMPORTANTE) return Cores.laranja
-    if (props.prioridade === enums.Prioridade.URGENTE) return Cores.vermelho
+    if (props.prioridade === enums.Prioridade.IMPORTANTE)
+      return CoresTarefas.laranja
+    if (props.prioridade === enums.Prioridade.URGENTE)
+      return CoresTarefas.vermelho
   }
 
-  return '#ccc'
+  return CoresTarefas.cinzaClaro
 }
 
 export const Card = styled.div`
-  background-color: #fcfcfc;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: ${Cores.branco2};
+  box-shadow: 0px 4px 4px ${CoresTarefas.pretoSombraCard};
   padding: 16px;
   margin-bottom: 32px;
   border-radius: 16px;
+
+  label {
+    display: flex;
+    margin-bottom: 16px;
+
+    input {
+      margin-right: 8px;
+    }
+  }
 `
 
 export const Titulo = styled.h3`
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 16px;
+
+  em {
+    font-weight: bold;
+    font-size: 18px;
+    font-style: normal;
+  }
 `
 
 export const Tag = styled.span<TagProps>`
   padding: 4px 8px;
-  color: #fff;
+  color: ${Cores.branco};
   font-weight: bold;
   font-size: 10px;
   background-color: ${(props) => corDeFundoTag(props)};
@@ -46,7 +63,7 @@ export const Tag = styled.span<TagProps>`
 `
 
 export const Descricao = styled.textarea`
-  color: #8b8b8b;
+  color: ${CoresTarefas.cinzaEscuro};
   font-size: 14px
   line-height: 24px;
   font-family: 'Roboto Mono', monospace;
@@ -60,17 +77,17 @@ export const Descricao = styled.textarea`
 `
 
 export const ActionBar = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid ${CoresTarefas.preto};
   padding-top: 16px;
 `
 
 export const Botao = styled.button`
   font-weight: bold;
   font-size: 12px;
-  color: #fff;
+  color: ${Cores.branco};
   border: none;
   cursor: pointer;
-  background-color: #2f3640;
+  background-color: ${Cores.azul};
   padding: 8px 12px;
   border-radius: 8px;
   margin-right: 8px;
@@ -81,5 +98,5 @@ export const BotaoSalvar = styled(Botao)`
 `
 
 export const BotaoCancelarRemover = styled(Botao)`
-  background-color: ${Cores.vermelho};
+  background-color: ${CoresTarefas.vermelho};
 `
